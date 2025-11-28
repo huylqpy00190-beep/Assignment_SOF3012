@@ -1,0 +1,170 @@
+/* Layout/custom-styles.css - CSS Tùy chỉnh bổ sung và ghi đè cho Bootstrap */
+
+/* --- Tùy chỉnh Màu và Font --- */
+body { 
+    font-family: Arial, sans-serif; 
+    background-color: #f4f4f4; 
+}
+/* Navbar Colors */
+.navbar-custom {
+    background-color: #ffc800 !important; /* Màu Vàng cam chính */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav-link-black {
+    color: black !important;
+    font-weight: bold;
+}
+.nav-link-blue {
+    color: #00008b !important; /* Màu xanh đậm cho menu */
+    font-weight: bold;
+}
+
+/* --- Menu Dropdown --- */
+.dropdown-menu {
+    border: 1px solid #ff9933;
+}
+.dropdown-item {
+    color: #00008b;
+    font-weight: 500;
+}
+.dropdown-item:hover {
+    background-color: #ff9933;
+    color: white;
+}
+
+/* --- Phần Nội dung Chung (Dùng cho container chính) --- */
+.content-wrapper {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.section-header-custom {
+    background-color: #e6ffe6;
+    color: #333;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    border-top: 1px solid #a9d9a9;
+    border-bottom: 1px solid #a9d9a9;
+    text-align: center;
+}
+
+/* --- Video Grid (Trang Chủ & Yêu Thích) --- */
+.video-poster {
+    height: 150px;
+    background-color: #eee;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ff9933;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.video-title {
+    background-color: #e6ffe6;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- Form (Đăng nhập/Đăng ký) --- */
+.form-container-custom {
+    border: 1px solid #ff9933;
+    border-radius: 5px;
+}
+.form-header-custom {
+    background-color: #e6ffe6;
+    padding: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: -1.5rem -1.5rem 1rem -1.5rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.form-control:focus {
+    border-color: #ff9933;
+    box-shadow: 0 0 0 0.25rem rgba(255, 153, 51, 0.25);
+}
+
+/* --- Admin Layout --- */
+.admin-menu a { 
+    display: block; 
+    padding: 10px; 
+    margin-bottom: 5px; 
+    text-decoration: none; 
+    color: #333; 
+    font-weight: bold; 
+    border-bottom: 1px solid #eee; 
+    border-radius: 4px;
+}
+.admin-menu a:hover { 
+    background-color: #ffc800; 
+    color: white; 
+}
+
+/* --- Admin Tables --- */
+.table-admin th { 
+    background-color: #ff9933; 
+    color: white; 
+}
+.table-admin tbody tr:hover { 
+    background-color: #fff3e0 !important;
+}
+
+/* --- Report Tabs --- */
+.report-tabs .nav-link.active {
+    background-color: #ff9933 !important;
+    color: white !important;
+    border-color: #ff9933 !important;
+}
+
+/* --- Chi Tiết Video --- */
+.video-box-detail {
+    height: 400px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+}
+.history-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    border: 1px solid #ccc; 
+    padding: 5px; 
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+.history-poster { 
+    width: 50px; 
+    height: 50px; 
+    background-color: #eee; 
+    border: 1px solid #ff9933; 
+    flex-shrink: 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Poster Preview (Admin) --- */
+.poster-preview { 
+    height: 150px; 
+    background-color: #eee; 
+    border: 1px solid #ccc; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 10px; 
+    border-radius: 4px;
+}

@@ -1,0 +1,47 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${pageTitle} | Administration Tool</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .admin-nav { background-color: #343a40; }
+        .admin-nav .navbar-brand { color: #ffff00; font-weight: bold; }
+        .admin-nav .nav-link { color: #28a745 !important; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg admin-nav fixed-top shadow">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/home">ADMINISTRATION TOOL</a>
+            <div class="collapse navbar-collapse">
+<!--                 <ul class="navbar-nav mr-auto"> -->
+<%--                     <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/home">HOME</a></li> --%>
+<%--                     <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/videos">VIDEOS</a></li> --%>
+<%--                     <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/users">USERS</a></li> --%>
+<%--                     <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/reports">REPORTS</a></li> --%>
+<!--                 </ul> -->
+					<ul class="navbar-nav mr-auto">
+	                    <li class="nav-item"><a class="nav-link" href="../../trangchu.jsp">HOME</a></li>
+	                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/videos">VIDEOS</a></li>
+	                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/users">USERS</a></li>
+	                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/reports">REPORTS</a></li>
+	                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <span class="nav-link text-light">Admin: ${sessionScope.user.username}</span>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="${pageContext.request.contextPath}/logoff">Logoff</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="container-fluid" style="padding-top: 80px; padding-bottom: 20px;">
+        <h1 class="mb-4 text-primary">${pageTitle}</h1>
+        <c:if test="${not empty message}">
+            <div class="alert alert-info">${message}</div>
+            <c:remove var="message" scope="session"/>
+        </c:if>

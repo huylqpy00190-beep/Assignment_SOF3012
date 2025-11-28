@@ -1,0 +1,139 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:set var="pageTitle" value="Báo Cáo - Thống Kê"/>
+<jsp:include page="Layout/header.jsp"/>
+
+<div class="card shadow">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="reportTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="favorites-stat-tab" data-toggle="tab" href="#favorites-stat" role="tab">FAVORITES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="favorite-users-tab" data-toggle="tab" href="#favorite-users" role="tab">FAVORITE USERS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="shared-friends-tab" data-toggle="tab" href="#shared-friends" role="tab">SHARED FRIENDS</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-body">
+        <div class="tab-content" id="reportTabContent">
+
+            <div class="tab-pane fade show active" id="favorites-stat" role="tabpanel">
+                <h5 class="card-title">Thống kê số người yêu thích</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>VIDEO TITLE</th>
+                                <th>FAVORITE COUNT</th>
+                                <th>LATEST DATE</th>
+                                <th>OLDEST DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="stat" items="${favoriteStats}">
+                                <tr>
+                                    <td>${stat.videoTitle}</td>
+                                    <td>${stat.favoriteCount}</td>
+                                    <td>${stat.latestDate}</td>
+                                    <td>${stat.oldestDate}</td>
+                                </tr>
+                            </c:forEach>
+                            <c:if test="${empty favoriteStats}">
+                                <tr><td colspan="4" class="text-center">Chưa có dữ liệu thống kê.</td></tr>
+                            </c:if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="favorite-users" role="tabpanel">
+                <h5 class="card-title">Lọc người yêu thích theo tiểu phẩm</h5>
+
+                <form action="${pageContext.request.contextPath}/admin/reports/favorite-users" method="get" class="form-inline mb-3">
+                    <label for="videoTitleSelect" class="mr-2">VIDEO TITLE?</label>
+                    <select id="videoTitleSelect" name="videoId" class="form-control mr-3">
+                        <option value="">-- Chọn Tiểu Phẩm --</option>
+                        <c:forEach var="video" items="${videosWithFavorites}">
+                            <option value="${video.id}" ${param.videoId == video.id ? 'selected' : ''}>${video.title}</option>
+                        </c:forEach>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Lọc</button>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>USERNAME</th>
+                                <th>FULLNAME</th>
+                                <th>EMAIL</th>
+                                <th>FAVORITE DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="user" items="${favoriteUsers}">
+                                <tr>
+                                    <td>${user.username}</td>
+                                    <td>${user.fullname}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.favoriteDate}</td>
+                                </tr>
+                            </c:forEach>
+                             <c:if test="${empty favoriteUsers}">
+                                <tr><td colspan="4" class="text-center">Chọn video để hiển thị người dùng đã yêu thích.</td></tr>
+                            </c:if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="shared-friends" role="tabpanel">
+                <h5 class="card-title">Lọc người gửi & người nhận theo tiểu phẩm được chia sẻ</h5>
+
+                <form action="${pageContext.request.contextPath}/admin/reports/shared-friends" method="get" class="form-inline mb-3">
+                    <label for="videoTitleSelect2" class="mr-2">VIDEO TITLE?</label>
+                    <select id="videoTitleSelect2" name="videoId" class="form-control mr-3">
+                        <option value="">-- Chọn Tiểu Phẩm --</option>
+                        <c:forEach var="video" items="${videosWithShares}">
+                            <option value="${video.id}" ${param.videoId == video.id ? 'selected' : ''}>${video.title}</option>
+                        </c:forEach>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Lọc</button>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>SENDER NAME</th>
+                                <th>SENDER EMAIL</th>
+                                <th>RECEIVER EMAIL</th>
+                                <th>SENT DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="share" items="${sharedFriends}">
+                                <tr>
+                                    <td>${share.senderName}</td>
+                                    <td>${share.senderEmail}</td>
+                                    <td>${share.receiverEmail}</td>
+                                    <td>${share.shareDate}</td>
+                                </tr>
+                            </c:forEach>
+                            <c:if test="${empty sharedFriends}">
+                                <tr><td colspan="4" class="text-center">Chọn video để hiển thị thông tin chia sẻ.</td></tr>
+                            </c:if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<jsp:include page="Layout/footer.jsp"/>

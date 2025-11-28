@@ -1,0 +1,60 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${pageTitle} | ONLINE ENTERTAINMENT</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles.css">
+    <style>
+        .customer-nav { background-color: #f7931e; }
+        .customer-nav .navbar-brand, .customer-nav .nav-link { color: #00008b !important; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg customer-nav fixed-top shadow">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/home">ONLINE ENTERTAINMENT</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/favorites">MY FAVORITES</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user}">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="myAccountDropdown" data-toggle="dropdown">MY ACCOUNT</a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/registration">Registration</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/forgot-password">Forgot Password</a>
+                                </div>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userMenuDropdown" data-toggle="dropdown">
+                                    Hi, ${sessionScope.user.fullname}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/change-password">Change Password</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/edit-profile">Edit Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logoff">Logoff</a>
+                                </div>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="container" style="padding-top: 80px; padding-bottom: 50px;">
+        <c:if test="${not empty message}">
+            <div class="alert alert-info">${message}</div>
+            <c:remove var="message" scope="session"/>
+        </c:if>
