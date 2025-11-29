@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="pageTitle" value="Đăng Ký"/>
+<c:set var="pageTitle" value="Đăng ký"/>
 <jsp:include page="Layout/header.jsp"/>
 
 <div class="row justify-content-center">

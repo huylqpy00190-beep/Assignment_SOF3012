@@ -1,0 +1,114 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="pageTitle" value="Quáº£n LÃ½ Tiá»u Pháº©m"/>
+<jsp:include page="Layout/header.jsp"/>
+
+<c:set var="video" value="${requestScope.videoSelected}"/>
+
+<ul class="nav nav-tabs" id="videoTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="edition-tab" data-toggle="tab" href="#edition" role="tab">VIDEO EDITION</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab">VIDEO LIST</a>
+    </li>
+</ul>
+
+<div class="tab-content border border-top-0 p-3" id="videoTabContent">
+
+    <div class="tab-pane fade show active" id="edition" role="tabpanel">
+        <form action="${pageContext.request.contextPath}/admin/videos" method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="border text-center p-2 mb-3" style="height: 250px;">
+                        <img src="${video.poster}" alt="POSTER" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+                    <label for="posterUrl">POSTER URL?</label>
+                    <input type="url" id="posterUrl" name="poster" class="form-control" value="${video.poster}">
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>YOUTUBE ID?</label>
+                            <input type="text" name="id" class="form-control" required value="${video.id}" ${not empty video.id ? 'readonly' : ''}>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>VIDEO TITLE?</label>
+                            <input type="text" name="title" class="form-control" required value="${video.title}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>VIEW COUNT?</label>
+                        <input type="number" name="views" class="form-control" value="${not empty video.views ? video.views : 0}" readonly>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="active" id="activeRadio" value="true" ${video.active || empty video.id ? 'checked' : ''}>
+                            <label class="form-check-label" for="activeRadio">ACTIVE</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="active" id="inactiveRadio" value="false" ${!video.active && not empty video.id ? 'checked' : ''}>
+                            <label class="form-check-label" for="inactiveRadio">INACTIVE</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>DESCRIPTION?</label>
+                        <textarea name="description" class="form-control" rows="3">${video.description}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group mt-3 float-right">
+                <button formaction="${pageContext.request.contextPath}/admin/videos/create" class="btn btn-success" ${not empty video.id ? 'disabled' : ''}>Create</button>
+                <button formaction="${pageContext.request.contextPath}/admin/videos/update" class="btn btn-warning" ${empty video.id ? 'disabled' : ''}>Update</button>
+                <button formaction="${pageContext.request.contextPath}/admin/videos/delete" class="btn btn-danger" ${empty video.id ? 'disabled' : ''}>Delete</button>
+                <a href="${pageContext.request.contextPath}/admin/videos" class="btn btn-info">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="tab-pane fade" id="list" role="tabpanel">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Youtube Id</th>
+                        <th>Video Title</th>
+                        <th>View Count</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="v" items="${videosList}">
+                        <tr>
+                            <td>${v.id}</td>
+                            <td>${v.title}</td>
+                            <td>${v.views}</td>
+                            <td>${v.active ? 'Active' : 'Inactive'}</td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/admin/videos?action=edit&id=${v.id}" class="btn btn-sm btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <span>${totalVideos} videos</span>
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/videos?page=1" title="Trang đầu [|<]">[<]</a></li>
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/videos?page=${currentPage - 1}" title="Trang trước [<<]">&lt;&lt;</a></li>
+                    <li class="page-item disabled"><span class="page-link">${currentPage}</span></li>
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/videos?page=${currentPage + 1}" title="Trang sau [>>]">&gt;&gt;</a></li>
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/videos?page=${totalPages}" title="Trang cuối [>|]">[>]</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<jsp:include page="Layout/footer.jsp"/>

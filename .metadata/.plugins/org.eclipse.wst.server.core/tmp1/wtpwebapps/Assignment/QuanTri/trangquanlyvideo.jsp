@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="pageTitle" value="Quáº£n LÃ½ Tiá»u Pháº©m"/>
+<c:set var="pageTitle" value="Quản lý video"/>
 <jsp:include page="Layout/header.jsp"/>
 
 <c:set var="video" value="${requestScope.videoSelected}"/>
